@@ -15,25 +15,25 @@
 
 ### 1. POST `/shorten`
 
-Creates a shortened URL.
+Create a shortened URL.
 
 **Request:**
 ```json
 {
-  "url": "https://example.com"
+  "long_url": "https://example.com"
 }
 ```
 
 **Response:**
 ```json
 {
-  "shortened_url": "http://<your-domain>/<shortlink>"
+  "short_url": "https://<your-domain>/<shortlink>"
 }
 ```
 
-### 2. GET `/<shortlink>`
+### 2. GET `/<short_url>`
 
-Redirects to the original URL.
+Redirect to the original URL.
 
 ## Getting Started
 
@@ -46,7 +46,7 @@ Redirects to the original URL.
 
 ### Environment Variables
 
-- `REDIS_ADDR`: The address of the Redis server (e.g., `localhost:6379`).
+- `REDIS_ADDR`: The address of the cache (e.g. redis or garnet) server (e.g., `localhost:6379`).
 
 ### Running with Docker Compose
 
@@ -56,12 +56,7 @@ Redirects to the original URL.
     cd burry
     ```
 
-2. Set up the environment variable:
-    ```sh
-    export REDIS_ADDR=localhost:6379
-    ```
-
-3. Start the services:
+2. Start the services:
     ```sh
     docker-compose up --build
     ```
@@ -88,10 +83,12 @@ Redirects to the original URL.
 
 ## Usage
 
+The app runs on port 8080.
+
 ### Shorten a URL
 
 ```sh
-curl -X POST -H "Content-Type: application/json" -d '{"url": "https://example.com"}' https://<your-domain>/shorten
+curl -X POST -H "Content-Type: application/json" -d '{"long_url": "https://example.com"}' https://<your-domain>/shorten
 ```
 
 ### Use a short link
